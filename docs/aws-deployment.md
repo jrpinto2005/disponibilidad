@@ -169,7 +169,7 @@ ssh -i "tu-key.pem" ubuntu@[IP-FRONTEND]
 cd /opt/failover-app
 
 # 2. Clonar el repositorio (o transferir archivos)
-git clone [TU-REPO-URL] .
+git clone https://github.com/jrpinto2005/disponibilidad.git .
 # O transferir archivos: scp -i "tu-key.pem" -r aws-failover-experiment ubuntu@[IP]:/opt/failover-app
 
 # 3. Configurar variables de entorno para Parte 1
@@ -248,7 +248,7 @@ ssh -i "tu-key.pem" ubuntu@[IP-BACKEND-PRIMARY]
 cd /opt/failover-app
 
 # 2. Clonar el repositorio
-git clone [TU-REPO-URL] .
+git clone https://github.com/jrpinto2005/disponibilidad.git .
 
 # 3. Configurar variables de entorno para Parte 1
 cat > part1/backend-simple/.env << EOF
@@ -328,7 +328,7 @@ ssh -i "tu-key.pem" ubuntu@[IP-BACKEND-BACKUP]
 cd /opt/failover-app
 
 # 2. Clonar el repositorio
-git clone [TU-REPO-URL] .
+git clone https://github.com/jrpinto2005/disponibilidad.git .
 
 # 3. Configurar variables de entorno
 # Nota: Solo configuramos Part 2 ya que Part 1 no usa backup
@@ -387,7 +387,7 @@ ssh -i "tu-key.pem" ubuntu@[IP-HEALTH-CHECKER]
 cd /opt/failover-app
 
 # 2. Clonar el repositorio
-git clone [TU-REPO-URL] .
+git clone https://github.com/jrpinto2005/disponibilidad.git .
 
 # 3. Configurar variables de entorno
 cat > part2/health-checker/.env << EOF

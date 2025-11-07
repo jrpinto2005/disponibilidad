@@ -9,7 +9,7 @@ const SERVER_NAME = process.env.SERVER_NAME || 'Health-Checker';
 // Configuration
 const PRIMARY_BACKEND_URL = process.env.PRIMARY_BACKEND_URL || 'http://localhost:4001';
 const BACKUP_BACKEND_URL = process.env.BACKUP_BACKEND_URL || 'http://localhost:4002';
-const CHECK_INTERVAL = parseInt(process.env.CHECK_INTERVAL) || 2000; // 5 seconds
+const CHECK_INTERVAL = parseInt(process.env.CHECK_INTERVAL) || 1000; // 1 second
 
 // Middleware
 app.use(cors());

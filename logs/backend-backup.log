@@ -1,0 +1,10 @@
+
+> backend-backup@1.0.0 start
+> node server.js
+
+🔄 Backend-Backup ejecutándose en puerto 4002
+🏥 Health check: http://localhost:4002/health
+🧪 API test: http://localhost:4002/api/test
+📊 Stats: http://localhost:4002/api/stats
+💥 Simulate failure: POST http://localhost:4002/api/simulate-failure
+🔄 Toggle health: POST http://localhost:4002/api/toggle-health

@@ -1,0 +1,14 @@
+
+> backend-primary@1.0.0 start
+> node server.js
+
+🚀 Backend-Primary ejecutándose en puerto 4001
+🏥 Health check: http://localhost:4001/health
+🧪 API test: http://localhost:4001/api/test
+📊 Stats: http://localhost:4001/api/stats
+💥 Simulate failure: POST http://localhost:4001/api/simulate-failure
+🔄 Toggle health: POST http://localhost:4001/api/toggle-health
+💥 Simulando falla por 5000ms
+✅ Restaurando servicio
+💥 Simulando falla por 15000ms
+✅ Restaurando servicio

@@ -1,0 +1,721 @@
+
+> health-checker@1.0.0 start
+> node server.js
+
+🚀 Starting health checker...
+📍 Primary: http://localhost:4001
+📍 Backup: http://localhost:4002
+⏱️  Check interval: 5000ms
+
+🔍 Health check #1 at 5:03:47 AM
+🏥 Health-Checker ejecutándose en puerto 4003
+📊 Status API: http://localhost:4003/api/status
+📋 Health report: http://localhost:4003/api/health-report
+🔄 Force check: POST http://localhost:4003/api/force-check
+⚙️  Set recommendation: POST http://localhost:4003/api/set-recommendation
+✅ BACKUP healthy (10ms)
+✅ PRIMARY healthy (17ms)
+
+🔍 Health check #2 at 5:03:52 AM
+✅ BACKUP healthy (7ms)
+✅ PRIMARY healthy (11ms)
+
+🔍 Health check #3 at 5:03:57 AM
+✅ PRIMARY healthy (10ms)
+✅ BACKUP healthy (10ms)
+
+🔍 Health check #4 at 5:04:02 AM
+✅ BACKUP healthy (6ms)
+❌ PRIMARY unhealthy: HTTP 503: Service Unavailable (1 failures)
+🔄 Recommending failover to BACKUP
+
+🔍 Health check #5 at 5:04:07 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+🔄 Recommending failback to PRIMARY
+
+🔍 Health check #6 at 5:04:12 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #7 at 5:04:17 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #8 at 5:04:22 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #9 at 5:04:27 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #10 at 5:04:32 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #11 at 5:04:37 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #12 at 5:04:42 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #13 at 5:04:47 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #14 at 5:04:52 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #15 at 5:04:57 AM
+❌ PRIMARY unhealthy: HTTP 503: Service Unavailable (1 failures)
+✅ BACKUP healthy (13ms)
+🔄 Recommending failover to BACKUP
+
+🔍 Health check #16 at 5:05:02 AM
+✅ BACKUP healthy (3ms)
+❌ PRIMARY unhealthy: HTTP 503: Service Unavailable (2 failures)
+
+🔍 Health check #17 at 5:05:07 AM
+✅ BACKUP healthy (4ms)
+❌ PRIMARY unhealthy: HTTP 503: Service Unavailable (3 failures)
+
+🔍 Health check #18 at 5:05:12 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (2ms)
+🔄 Recommending failback to PRIMARY
+
+🔍 Health check #19 at 5:05:17 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #20 at 5:05:22 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #21 at 5:05:27 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #22 at 5:05:32 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #23 at 5:05:37 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #24 at 5:05:42 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #25 at 5:05:47 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (8ms)
+
+🔍 Health check #26 at 5:05:52 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #27 at 5:05:57 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #28 at 5:06:02 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #29 at 5:06:07 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #30 at 5:06:12 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #31 at 5:06:17 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #32 at 5:06:22 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #33 at 5:06:27 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #34 at 5:06:32 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #35 at 5:06:37 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #36 at 5:06:42 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #37 at 5:06:47 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #38 at 5:06:52 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #39 at 5:06:57 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #40 at 5:07:02 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #41 at 5:07:07 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #42 at 5:07:12 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #43 at 5:07:17 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #44 at 5:07:22 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #45 at 5:07:27 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #46 at 5:07:32 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #47 at 5:07:37 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #48 at 5:07:42 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #49 at 5:07:47 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #50 at 5:07:52 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #51 at 5:07:57 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (11ms)
+
+🔍 Health check #52 at 5:08:02 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #53 at 5:08:07 AM
+✅ BACKUP healthy (6ms)
+✅ PRIMARY healthy (8ms)
+
+🔍 Health check #54 at 5:08:12 AM
+✅ PRIMARY healthy (1ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #55 at 5:08:17 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #56 at 5:08:22 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #57 at 5:08:27 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #58 at 5:08:32 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #59 at 5:08:37 AM
+✅ PRIMARY healthy (1ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #60 at 5:08:42 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #61 at 5:08:47 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #62 at 5:08:52 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #63 at 5:08:57 AM
+✅ PRIMARY healthy (7ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #64 at 5:09:02 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #65 at 5:09:07 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #66 at 5:09:12 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #67 at 5:09:17 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #68 at 5:09:22 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #69 at 5:09:27 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #70 at 5:09:32 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #71 at 5:09:37 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #72 at 5:09:42 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #73 at 5:09:47 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #74 at 5:09:52 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #75 at 5:09:57 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #76 at 5:10:02 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #77 at 5:10:07 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #78 at 5:10:12 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #79 at 5:10:17 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #80 at 5:10:22 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #81 at 5:10:27 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #82 at 5:10:32 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #83 at 5:10:37 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #84 at 5:10:42 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #85 at 5:10:47 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #86 at 5:10:52 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #87 at 5:10:57 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #88 at 5:11:02 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #89 at 5:11:07 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #90 at 5:11:12 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #91 at 5:11:17 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #92 at 5:11:22 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #93 at 5:11:27 AM
+✅ PRIMARY healthy (14ms)
+✅ BACKUP healthy (8ms)
+
+🔍 Health check #94 at 5:11:32 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #95 at 5:11:37 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #96 at 5:11:42 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #97 at 5:11:47 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #98 at 5:11:52 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #99 at 5:11:57 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #100 at 5:12:02 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #101 at 5:12:07 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #102 at 5:12:12 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #103 at 5:12:17 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #104 at 5:12:22 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #105 at 5:12:27 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #106 at 5:12:32 AM
+✅ PRIMARY healthy (58ms)
+✅ BACKUP healthy (54ms)
+
+🔍 Health check #107 at 5:12:37 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #108 at 5:12:42 AM
+✅ BACKUP healthy (8ms)
+✅ PRIMARY healthy (8ms)
+
+🔍 Health check #109 at 5:12:47 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #110 at 5:12:52 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #111 at 5:12:57 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #112 at 5:13:02 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #113 at 5:13:07 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #114 at 5:13:12 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #115 at 5:13:17 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #116 at 5:13:22 AM
+✅ PRIMARY healthy (8ms)
+✅ BACKUP healthy (7ms)
+
+🔍 Health check #117 at 5:13:27 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #118 at 5:13:32 AM
+✅ PRIMARY healthy (9ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #119 at 5:13:37 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #120 at 5:13:42 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #121 at 5:13:47 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #122 at 5:13:52 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #123 at 5:13:57 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #124 at 5:14:02 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #125 at 5:14:07 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #126 at 5:14:12 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #127 at 5:14:17 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #128 at 5:14:22 AM
+✅ BACKUP healthy (14ms)
+✅ PRIMARY healthy (17ms)
+
+🔍 Health check #129 at 5:14:27 AM
+✅ PRIMARY healthy (3ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #130 at 5:14:32 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #131 at 5:14:37 AM
+✅ PRIMARY healthy (8ms)
+✅ BACKUP healthy (7ms)
+
+🔍 Health check #132 at 5:14:42 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #133 at 5:14:47 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (10ms)
+
+🔍 Health check #134 at 5:14:52 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #135 at 5:14:57 AM
+✅ PRIMARY healthy (12ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #136 at 5:15:02 AM
+✅ BACKUP healthy (7ms)
+✅ PRIMARY healthy (8ms)
+
+🔍 Health check #137 at 5:15:07 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #138 at 5:15:12 AM
+✅ PRIMARY healthy (12ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #139 at 5:15:17 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #140 at 5:15:22 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #141 at 5:15:27 AM
+✅ BACKUP healthy (4ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #142 at 5:15:32 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #143 at 5:15:37 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (1ms)
+
+🔍 Health check #144 at 5:15:42 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (6ms)
+
+🔍 Health check #145 at 5:15:47 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #146 at 5:15:52 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #147 at 5:15:57 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #148 at 5:16:02 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #149 at 5:16:07 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (19ms)
+
+🔍 Health check #150 at 5:16:12 AM
+✅ PRIMARY healthy (11ms)
+✅ BACKUP healthy (8ms)
+
+🔍 Health check #151 at 5:16:17 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #152 at 5:16:22 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #153 at 5:16:27 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #154 at 5:16:32 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #155 at 5:16:37 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #156 at 5:16:42 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #157 at 5:16:47 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (4ms)
+
+🔍 Health check #158 at 5:16:52 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #159 at 5:16:57 AM
+✅ PRIMARY healthy (2ms)
+✅ BACKUP healthy (2ms)
+
+🔍 Health check #160 at 5:17:02 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (4ms)
+
+🔍 Health check #161 at 5:17:07 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #162 at 5:17:12 AM
+✅ PRIMARY healthy (4ms)
+✅ BACKUP healthy (3ms)
+
+🔍 Health check #163 at 5:17:17 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #164 at 5:17:22 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #165 at 5:17:27 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #166 at 5:17:32 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #167 at 5:17:37 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (3ms)
+
+🔍 Health check #168 at 5:17:42 AM
+✅ PRIMARY healthy (6ms)
+✅ BACKUP healthy (5ms)
+
+🔍 Health check #169 at 5:17:47 AM
+✅ PRIMARY healthy (1ms)
+✅ BACKUP healthy (1ms)
+
+🔍 Health check #170 at 5:17:52 AM
+✅ BACKUP healthy (1ms)
+✅ PRIMARY healthy (1ms)
+
+🔍 Health check #171 at 5:17:57 AM
+✅ BACKUP healthy (3ms)
+✅ PRIMARY healthy (5ms)
+
+🔍 Health check #172 at 5:18:02 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #173 at 5:18:07 AM
+✅ PRIMARY healthy (8ms)
+✅ BACKUP healthy (6ms)
+
+🔍 Health check #174 at 5:18:12 AM
+✅ BACKUP healthy (5ms)
+✅ PRIMARY healthy (7ms)
+
+🔍 Health check #175 at 5:18:17 AM
+✅ BACKUP healthy (2ms)
+✅ PRIMARY healthy (2ms)
+
+🔍 Health check #176 at 5:18:22 AM
+✅ PRIMARY healthy (5ms)
+✅ BACKUP healthy (4ms)

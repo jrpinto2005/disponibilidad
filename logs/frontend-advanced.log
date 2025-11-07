@@ -1,0 +1,9 @@
+
+> frontend-advanced@1.0.0 start
+> node server.js
+
+🚀 Frontend Advanced running on port 4000
+🔧 Configuration:
+   Primary Backend: http://localhost:4001
+   Backup Backend: http://localhost:4002
+   Health Checker: http://localhost:4003

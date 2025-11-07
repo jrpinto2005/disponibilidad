@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Failover Experiment - Part 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .status-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #6c757d;
+        }
+        .status-healthy {
+            border-left-color: #28a745;
+        }
+        .status-unhealthy {
+            border-left-color: #dc3545;
+        }
+        .status-checking {
+            border-left-color: #ffc107;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .log-success {
+            background-color: #d4edda;
+        }
+        .log-error {
+            background-color: #f8d7da;
+        }
+        .log-warning {
+            background-color: #fff3cd;
+        }
+        .log-info {
+            background-color: #d1ecf1;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-green {
+            background-color: #28a745;
+        }
+        .status-red {
+            background-color: #dc3545;
+        }
+        .status-yellow {
+            background-color: #ffc107;
+        }
+        .current-backend {
+            font-weight: bold;
+            font-size: 18px;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 AWS Failover Experiment - Parte 2 (Avanzado)</h1>
+        <p>Sistema con failover automático. El health checker monitorea el backend principal y activa el failover cuando sea necesario.</p>
+        
+        <div class="grid">
+            <div class="status-panel" id="primaryStatus">
+                <h3><span class="status-indicator status-yellow"></span>Backend Principal</h3>
+                <p id="primaryInfo">Verificando estado...</p>
+            </div>
+            <div class="status-panel" id="backupStatus">
+                <h3><span class="status-indicator status-yellow"></span>Backend Backup</h3>
+                <p id="backupInfo">Verificando estado...</p>
+            </div>
+        </div>
+        
+        <div class="result info">
+            <strong>Backend Activo:</strong> <span class="current-backend" id="currentBackend">Detectando...</span>
+        </div>
+        
+        <button id="testBtn" onclick="testBackendWithFailover()">🚀 Probar con Failover</button>
+        <button onclick="forceFailover()">⚡ Forzar Failover</button>
+        <button onclick="checkHealth()">🏥 Verificar Estado</button>
+        <button onclick="clearResults()">🗑️ Limpiar</button>
+        
+        <div id="result"></div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div>Requests Exitosos</div>
+                <div class="stat-value" id="successCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div>Requests Fallidos</div>
+                <div class="stat-value" id="errorCount" style="color: #dc3545;">0</div>
+            </div>
+            <div class="stat-card">
+                <div>Failovers</div>
+                <div class="stat-value" id="failoverCount" style="color: #ffc107;">0</div>
+            </div>
+            <div class="stat-card">
+                <div>Tiempo Promedio</div>
+                <div class="stat-value" id="avgTime">0ms</div>
+            </div>
+        </div>
+        
+        <div class="log" id="logContainer">
+            <strong>📝 Log de Eventos:</strong>
+            <div id="logContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let config = {};
+        let currentBackend = 'primary';
+        let stats = {
+            successCount: 0,
+            errorCount: 0,
+            failoverCount: 0,
+            totalTime: 0
+        };
+
+        // Load configuration
+        async function loadConfig() {
+            try {
+                const response = await fetch('/api/config');
+                config = await response.json();
+                log('info', `Configuración cargada: Primary=${config.backendPrimaryUrl}, Backup=${config.backendBackupUrl}`);
+                
+                // Start health checking
+                startHealthChecking();
+            } catch (error) {
+                log('error', `Error cargando configuración: ${error.message}`);
+            }
+        }
+
+        // Start periodic health checking
+        function startHealthChecking() {
+            checkHealth();
+            setInterval(checkHealth, 5000); // Check every 5 seconds
+        }
+
+        // Check health of all services
+        async function checkHealth() {
+            await Promise.all([
+                checkServiceHealth('primary', config.backendPrimaryUrl),
+                checkServiceHealth('backup', config.backendBackupUrl)
+            ]);
+            
+            // Update current backend based on health status
+            updateCurrentBackend();
+        }
+
+        async function checkServiceHealth(type, url) {
+            const statusElement = document.getElementById(`${type}Status`);
+            const infoElement = document.getElementById(`${type}Info`);
+            const indicator = statusElement.querySelector('.status-indicator');
+            
+            try {
+                const response = await fetch(`${url}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    statusElement.className = 'status-panel status-healthy';
+                    indicator.className = 'status-indicator status-green';
+                    infoElement.innerHTML = `
+                        ✅ Saludable<br>
+                        Uptime: ${data.uptime}s<br>
+                        Server: ${data.server}
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                statusElement.className = 'status-panel status-unhealthy';
+                indicator.className = 'status-indicator status-red';
+                infoElement.innerHTML = `
+                    ❌ No disponible<br>
+                    Error: ${error.message}
+                `;
+            }
+        }
+
+        function updateCurrentBackend() {
+            const primaryHealthy = document.getElementById('primaryStatus').classList.contains('status-healthy');
+            const backupHealthy = document.getElementById('backupStatus').classList.contains('status-healthy');
+            
+            let newBackend = currentBackend;
+            
+            if (!primaryHealthy && backupHealthy) {
+                newBackend = 'backup';
+            } else if (primaryHealthy) {
+                newBackend = 'primary';
+            }
+            
+            if (newBackend !== currentBackend) {
+                log('warning', `Failover activado: ${currentBackend} → ${newBackend}`);
+                stats.failoverCount++;
+                updateStats();
+            }
+            
+            currentBackend = newBackend;
+            document.getElementById('currentBackend').textContent = 
+                currentBackend === 'primary' ? 'Backend Principal' : 'Backend Backup';
+        }
+
+        async function testBackendWithFailover() {
+            const button = document.getElementById('testBtn');
+            const resultDiv = document.getElementById('result');
+            
+            button.disabled = true;
+            button.innerHTML = '⏳ Enviando petición...';
+            
+            const startTime = performance.now();
+            log('info', `Iniciando petición usando ${currentBackend} backend`);
+            
+            try {
+                // First check if we need to failover
+                const healthResponse = await checkHealthChecker();
+                if (healthResponse && healthResponse.shouldUseBackup) {
+                    log('warning', 'Health checker recomienda usar backup');
+                    currentBackend = 'backup';
+                    stats.failoverCount++;
+                }
+                
+                const backendUrl = currentBackend === 'primary' 
+                    ? config.backendPrimaryUrl 
+                    : config.backendBackupUrl;
+                
+                const response = await fetch(`${backendUrl}/api/test`);
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    stats.successCount++;
+                    stats.totalTime += responseTime;
+                    
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            ✅ <strong>Éxito con ${currentBackend} backend!</strong><br>
+                            ⏱️ Tiempo total: <strong>${responseTime}ms</strong><br>
+                            🔄 Failovers durante la operación: ${healthResponse?.shouldUseBackup ? '1' : '0'}<br>
+                            💬 Respuesta: "${data.message}"<br>
+                            🖥️ Servidor: ${data.server}<br>
+                            🕐 Hora: ${new Date().toLocaleTimeString()}
+                        </div>
+                    `;
+                    
+                    log('success', `Petición exitosa (${responseTime}ms) desde ${data.server}`);
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                stats.errorCount++;
+                
+                // Try failover if primary failed
+                if (currentBackend === 'primary') {
+                    log('warning', 'Primary backend falló, intentando failover...');
+                    try {
+                        const backupResponse = await fetch(`${config.backendBackupUrl}/api/test`);
+                        if (backupResponse.ok) {
+                            const backupData = await backupResponse.json();
+                            const finalTime = Math.round(performance.now() - startTime);
+                            
+                            currentBackend = 'backup';
+                            stats.failoverCount++;
+                            stats.successCount++;
+                            stats.totalTime += finalTime;
+                            
+                            resultDiv.innerHTML = `
+                                <div class="result warning">
+                                    ⚡ <strong>Failover exitoso!</strong><br>
+                                    ⏱️ Tiempo total (incluyendo failover): <strong>${finalTime}ms</strong><br>
+                                    🔄 Primary falló, backup respondió<br>
+                                    💬 Respuesta del backup: "${backupData.message}"<br>
+                                    🖥️ Servidor backup: ${backupData.server}<br>
+                                    🕐 Hora: ${new Date().toLocaleTimeString()}
+                                </div>
+                            `;
+                            
+                            log('success', `Failover exitoso (${finalTime}ms total) a ${backupData.server}`);
+                        } else {
+                            throw new Error('Backup también falló');
+                        }
+                    } catch (backupError) {
+                        resultDiv.innerHTML = `
+                            <div class="result error">
+                                ❌ <strong>Error completo!</strong><br>
+                                ⏱️ Tiempo transcurrido: <strong>${responseTime}ms</strong><br>
+                                📝 Primary error: ${error.message}<br>
+                                📝 Backup error: ${backupError.message}<br>
+                                🕐 Hora: ${new Date().toLocaleTimeString()}
+                            </div>
+                        `;
+                        
+                        log('error', `Falló primary y backup: ${error.message}`);
+                    }
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            ❌ <strong>Error en backup!</strong><br>
+                            ⏱️ Tiempo transcurrido: <strong>${responseTime}ms</strong><br>
+                            📝 Error: ${error.message}<br>
+                            🕐 Hora: ${new Date().toLocaleTimeString()}
+                        </div>
+                    `;
+                    
+                    log('error', `Backup backend falló: ${error.message}`);
+                }
+            } finally {
+                updateStats();
+                button.disabled = false;
+                button.innerHTML = '🚀 Probar con Failover';
+                updateCurrentBackend();
+            }
+        }
+
+        async function checkHealthChecker() {
+            try {
+                const response = await fetch(`${config.healthCheckerUrl}/api/status`);
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (error) {
+                log('warning', `Health checker no disponible: ${error.message}`);
+            }
+            return null;
+        }
+
+        function forceFailover() {
+            const newBackend = currentBackend === 'primary' ? 'backup' : 'primary';
+            log('info', `Failover manual: ${currentBackend} → ${newBackend}`);
+            currentBackend = newBackend;
+            stats.failoverCount++;
+            updateStats();
+            updateCurrentBackend();
+        }
+
+        function log(type, message) {
+            const logContent = document.getElementById('logContent');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logContent.insertBefore(logEntry, logContent.firstChild);
+            
+            // Keep only last 50 entries
+            while (logContent.children.length > 50) {
+                logContent.removeChild(logContent.lastChild);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('successCount').textContent = stats.successCount;
+            document.getElementById('errorCount').textContent = stats.errorCount;
+            document.getElementById('failoverCount').textContent = stats.failoverCount;
+            
+            const avgTime = stats.successCount > 0 
+                ? Math.round(stats.totalTime / stats.successCount)
+                : 0;
+            document.getElementById('avgTime').textContent = avgTime + 'ms';
+        }
+
+        function clearResults() {
+            stats = {
+                successCount: 0,
+                errorCount: 0,
+                failoverCount: 0,
+                totalTime: 0
+            };
+            
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('logContent').innerHTML = '';
+            updateStats();
+            log('info', 'Estadísticas reiniciadas');
+        }
+
+        // Load configuration when page loads
+        window.addEventListener('load', loadConfig);
+    </script>
+</body>
+</html>

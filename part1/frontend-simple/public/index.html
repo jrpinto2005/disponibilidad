@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Failover Experiment - Part 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .stats {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 AWS Failover Experiment - Parte 1</h1>
+        <p>Esta es la versión simple del experimento. Presiona el botón para enviar una petición al backend y medir el tiempo de respuesta.</p>
+        
+        <button id="testBtn" onclick="testBackend()">🚀 Probar Backend</button>
+        <button onclick="clearResults()">🗑️ Limpiar Resultados</button>
+        
+        <div id="result"></div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div>Peticiones Exitosas</div>
+                <div class="stat-value" id="successCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div>Peticiones Fallidas</div>
+                <div class="stat-value" id="errorCount" style="color: #dc3545;">0</div>
+            </div>
+            <div class="stat-card">
+                <div>Tiempo Promedio</div>
+                <div class="stat-value" id="avgTime">0ms</div>
+            </div>
+        </div>
+        
+        <div id="history" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        let backendUrl = '';
+        let stats = {
+            successCount: 0,
+            errorCount: 0,
+            totalTime: 0,
+            history: []
+        };
+
+        // Get backend configuration
+        async function loadConfig() {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                backendUrl = config.backendUrl;
+                console.log('Backend URL:', backendUrl);
+            } catch (error) {
+                console.error('Error loading config:', error);
+                backendUrl = 'http://localhost:3001'; // fallback
+            }
+        }
+
+        async function testBackend() {
+            const button = document.getElementById('testBtn');
+            const resultDiv = document.getElementById('result');
+            
+            button.disabled = true;
+            button.innerHTML = '⏳ Enviando petición...';
+            
+            const startTime = performance.now();
+            
+            try {
+                const response = await fetch(`${backendUrl}/api/test`);
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    stats.successCount++;
+                    stats.totalTime += responseTime;
+                    
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            ✅ <strong>Éxito!</strong><br>
+                            ⏱️ Tiempo de respuesta: <strong>${responseTime}ms</strong><br>
+                            💬 Mensaje del backend: "${data.message}"<br>
+                            🕐 Hora: ${new Date().toLocaleTimeString()}
+                        </div>
+                    `;
+                    
+                    addToHistory('success', responseTime, data.message);
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                stats.errorCount++;
+                
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        ❌ <strong>Error!</strong><br>
+                        ⏱️ Tiempo transcurrido: <strong>${responseTime}ms</strong><br>
+                        📝 Error: ${error.message}<br>
+                        🕐 Hora: ${new Date().toLocaleTimeString()}
+                    </div>
+                `;
+                
+                addToHistory('error', responseTime, error.message);
+            } finally {
+                updateStats();
+                button.disabled = false;
+                button.innerHTML = '🚀 Probar Backend';
+            }
+        }
+
+        function addToHistory(type, time, message) {
+            stats.history.unshift({
+                type,
+                time,
+                message,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            
+            // Keep only last 10 entries
+            if (stats.history.length > 10) {
+                stats.history = stats.history.slice(0, 10);
+            }
+            
+            updateHistory();
+        }
+
+        function updateHistory() {
+            const historyDiv = document.getElementById('history');
+            if (stats.history.length === 0) {
+                historyDiv.innerHTML = '';
+                return;
+            }
+            
+            let historyHtml = '<h3>📊 Historial de Peticiones (últimas 10)</h3>';
+            historyHtml += '<div style="max-height: 300px; overflow-y: auto;">';
+            
+            stats.history.forEach((entry, index) => {
+                const icon = entry.type === 'success' ? '✅' : '❌';
+                const colorClass = entry.type === 'success' ? 'success' : 'error';
+                historyHtml += `
+                    <div class="result ${colorClass}" style="margin: 5px 0; padding: 10px; font-size: 14px;">
+                        ${icon} ${entry.timestamp} - ${entry.time}ms - ${entry.message}
+                    </div>
+                `;
+            });
+            
+            historyHtml += '</div>';
+            historyDiv.innerHTML = historyHtml;
+        }
+
+        function updateStats() {
+            document.getElementById('successCount').textContent = stats.successCount;
+            document.getElementById('errorCount').textContent = stats.errorCount;
+            
+            const avgTime = stats.successCount > 0 
+                ? Math.round(stats.totalTime / stats.successCount)
+                : 0;
+            document.getElementById('avgTime').textContent = avgTime + 'ms';
+        }
+
+        function clearResults() {
+            stats = {
+                successCount: 0,
+                errorCount: 0,
+                totalTime: 0,
+                history: []
+            };
+            
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('history').innerHTML = '';
+            updateStats();
+        }
+
+        // Load configuration when page loads
+        window.addEventListener('load', loadConfig);
+    </script>
+</body>
+</html>
